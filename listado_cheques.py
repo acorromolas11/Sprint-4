@@ -1,11 +1,45 @@
 import csv
 from collections import defaultdict
 
+def verificarFechas(strg):
+    return
+
+def verificarValor(strg):
+    return
+
+def verificarDNI(strg):
+    return
+
+def verificarTipo(strg):
+    return
+
 def agregar():
-    print("Agrego")
+    with open ("cheques.csv","+a",newline='') as salida:
+        writer = csv.writer(salida)
+        NroCheque = input("Ingrese el NRO de cheque: ")
+        CodigoBanco = input("Ingrese el codigo de Banco: ")
+        CodigoSucursal = input("Ingrese el codigo de la sucursal: ")
+        NumeroCuentaOrigen = input("Ingrese el numero de cuenta de origen: ")
+        NumeroCuentaDestino = input("Ingrese el numero de la cuenta de destino: ")
+        Valor = input("Ingrese el valor del cheque: ")
+        FechaOrigen = input("Ingrese la fecha de origen del cheque: ")
+        FechaPago = input("Ingrese la fecha de pago del cheque: ")
+        dni = input("Ingrese su numero de DNI: ")
+        Estado = input("Ingrese el estado del cheque: ")
+        Tipo = input("Ingrese el tipo de cheque: ")
+        writer.writerow([NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,dni,Estado,Tipo])
+        print("Agregados de manera exitosa")
+
+def menuFiltros():
+    print("Seleccione uno de los siguientes filtros: ")
+    print("1-Por un DNI particular")
+    print("2-Por el tipo de cheque")
+    print("3-Estado del cheque")
+    print("4-Rango de fechas")
 
 def filtrar():
-    print("Filtro")
+    menuFiltros()
+    print("Filtrado exitoso")
 
 def exportar():
     print("Exporto")
