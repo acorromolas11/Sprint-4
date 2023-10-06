@@ -1,19 +1,64 @@
 import csv
 from collections import defaultdict
+import datetime
 
 #-----Extras------
 
-def verificarFechas(strg):
-    return
-
-def verificarValor(strg):
-    return
+def ingresarGenerico(strg):
+    return int(input(strg))
 
 def verificarDNI(strg):
-    return
+    ver = int(input(strg))
+    while(ver>99999999 or ver<10000000):
+        print("Valor invalido!")
+        ver = int(input(strg))
+    return ver
+
+def verificarValor(strg):
+    return float(input(strg))
+
+def verificarFechas(strg):
+    print(strg)
+    
+    año = int(input("Ingrese el año: "))
+    while (año<=0):
+        print("Año invalido!")
+        año = int(input("Ingrese el año: "))
+    
+    mes = int(input("Ingrese el mes: "))
+    while (mes<=0 or 13<=mes):
+        print("Mes invalido!")
+        mes = int(input("Ingrese el mes: "))
+    
+    dia = int(input("Ingrese el día: "))
+    if(mes==1 or mes==3 or mes==5 or mes==7 or mes==9 or mes==11):
+        ultimo=31
+    elif(mes==4 or mes==6 or mes==8 or mes==10 or mes==12):
+        ultimo=30
+    else:
+        ultimo=29
+
+    while(dia<=0 or ultimo<dia):
+        print("Dia invalido!")
+        dia = int(input("Ingrese el día: "))
+
+        
+    fecha = datetime.datetime(año,mes,dia)
+    return fecha.strftime("%Y-%m-%d")
 
 def verificarTipo(strg):
-    return
+    ver = input(strg)
+    while(ver.lower()!="depositado" and ver.lower()!="emitido"):
+        print("Valor invalido, los tipos de cheques son 'depositado' o 'emitido'")
+        ver = input(strg)
+    return ver
+
+def verificarEstado(strg):
+    ver = input(strg)
+    while(ver.lower()!="aprobado" and ver.lower()!="pendiente" and ver.lower()!="rechazado"):
+        print("Valor invalido, los estados de cheques son 'aprobado','pendiente' o 'rechazado'")
+        ver = input(strg)
+    return ver
 
 def mostrarTitulo():
     print(f"|NroCheque|CodigoBanco|CodigoSucursal|NumeroCuentaOrigen|NumeroCuentaDestino|Valor|FechaOrigen|FechaPago|DNI|Estado|Tipo")
@@ -22,23 +67,22 @@ def mostrarDatos(dict):
     print(f"|{dict['NroCheque']}|{dict['CodigoBanco']}|{dict['CodigoSucursal']}|{dict['NumeroCuentaOrigen']}|{dict['NumeroCuentaDestino']}|{dict['Valor']}|{dict['FechaOrigen']}|{dict['FechaPago']}|{dict['DNI']}|{dict['Estado']}|{dict['Tipo']}|")
 
 def crearArchivo(filtro,opcion):
-    fieldNames = ["NroCheque","CodigoBanco","CodigoSucursal","NumeroCuentaOrigen","NumeroCuentaDestino","Valor","FechaOrigen","FechaPago","DNI","Estado","Tipo"]
-    with open (f"{filtro}_TIMESTAMP_.csv","w",newline='') as wfile:
+    with open (f"{filtro}_{datetime.datetime.now().strftime('%Y-%m-%d')}_.csv","w",newline='') as wfile:
         with open("cheques.csv","r") as rfile:
             writer = csv.writer(wfile)
             reader = csv.DictReader(rfile)
             writer.writerow(reader.fieldnames)
             for row in reader:
                 if(row["DNI"]==filtro and opcion==1):
-                    writer.writerow(row.values())
+                    writer.writerows(row.values())
                 elif(row["Tipo"]==filtro and opcion==2):
-                    writer.writerow(row.values())
+                    writer.writerows(row.values())
                 elif(row["Estado"]==filtro and opcion==3):
-                    writer.writerow(row.values())
+                    writer.writerows(row.values())
 
 def crearArchivoFechas(strg1,strg2):
     fieldNames = ["NroCheque","CodigoBanco","CodigoSucursal","NumeroCuentaOrigen","NumeroCuentaDestino","Valor","FechaOrigen","FechaPago","DNI","Estado","Tipo"]
-    with open (f"FECHAS_TIMESTAMP_.csv","w",newline='') as wfile:
+    with open (f"FECHAS_{datetime.datetime.now().strftime('%Y-%m-%d')}_.csv","w",newline='') as wfile:
         with open("cheques.csv","r") as rfile:
             writer = csv.writer(wfile)
             reader = csv.DictReader(rfile)
@@ -50,19 +94,25 @@ def crearArchivoFechas(strg1,strg2):
 #----Agregar---------
 
 def agregar():
+    with open ("cheques.csv","r") as lectura:
+        reader = csv.reader(lectura)
+        for row in reader:
+            ultimo = row[0]
+        ultimo = int(ultimo)
     with open ("cheques.csv","+a",newline='') as salida:
         writer = csv.writer(salida)
-        NroCheque = input("Ingrese el NRO de cheque: ")
-        CodigoBanco = input("Ingrese el codigo de Banco: ")
-        CodigoSucursal = input("Ingrese el codigo de la sucursal: ")
-        NumeroCuentaOrigen = input("Ingrese el numero de cuenta de origen: ")
-        NumeroCuentaDestino = input("Ingrese el numero de la cuenta de destino: ")
-        Valor = input("Ingrese el valor del cheque: ")
-        FechaOrigen = input("Ingrese la fecha de origen del cheque: ")
-        FechaPago = input("Ingrese la fecha de pago del cheque: ")
-        dni = input("Ingrese su numero de DNI: ")
-        Estado = input("Ingrese el estado del cheque: ")
-        Tipo = input("Ingrese el tipo de cheque: ")
+        NroCheque = ultimo + 1 
+        #NroCheque = ingresarGenerico("Ingrese el NRO de cheque: ")
+        CodigoBanco = ingresarGenerico("Ingrese el codigo de Banco: ")
+        CodigoSucursal = ingresarGenerico("Ingrese el codigo de la sucursal: ")
+        NumeroCuentaOrigen = verificarDNI("Ingrese el numero de cuenta de origen: ")
+        NumeroCuentaDestino = verificarDNI("Ingrese el numero de la cuenta de destino: ")
+        Valor = verificarValor("Ingrese el valor del cheque: ")
+        FechaOrigen = verificarFechas("Ingrese la fecha de origen del cheque: ")
+        FechaPago = verificarFechas("Ingrese la fecha de pago del cheque: ")
+        dni = verificarDNI("Ingrese su numero de DNI: ")
+        Estado = verificarEstado("Ingrese el estado del cheque: ")
+        Tipo = verificarTipo("Ingrese el tipo de cheque: ")
         writer.writerow([NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,dni,Estado,Tipo])
         print("Agregados de manera exitosa")
 
@@ -114,17 +164,17 @@ def menuFiltros():
         print("5-Salir")
         opcion = int(input())
         if(opcion==1):
-            strg = input("Ingrese el DNI a filtrar: ")
+            strg = verificarDNI("Ingrese el DNI a filtrar: ")
             filtrado(strg,opcion,salida)
         elif(opcion==2):
-            strg = input("Ingrese el tipo de cheque: ")
+            strg = verificarTipo("Ingrese el tipo de cheque: ")
             filtrado(strg,opcion,salida)
         elif(opcion==3):
-            strg = input("Ingrese el estado del cheque: ")
+            strg =verificarEstado("Ingrese el estado del cheque: ")
             filtrado(strg,opcion,salida)
         elif(opcion==4):
-            strg1 = input("Ingrese la primera fecha: ")
-            strg2 = input("Ingrese la segunda fecha: ")
+            strg1 = verificarFechas("Ingrese la primera fecha: ")
+            strg2 = verificarFechas("Ingrese la segunda fecha: ")
             filtradoFechas(strg1,strg2,salida)
         elif(opcion==5):
             break
@@ -150,10 +200,11 @@ def menu():
     opcion = 0
     while(opcion>0 or opcion<=3):
         print("Bienvenido al menu")
+        print("Seleccione una de las opciones para continar")
         print("1-Agregar")
         print("2-Filtrar")
         print("3-Salir")
-        opcion = int(input("Elija una opción: "))
+        opcion = int(input())
         if(opcion==1):
             agregar()
         elif(opcion==2):
