@@ -90,7 +90,7 @@ def crearArchivoFechas(strg1,strg2):
             writer.writerow(reader.fieldnames)
             for row in reader:
                 if(strg1<row["FechaOrigen"]<strg2):
-                    writer.writerow(row.values)
+                    writer.writerow(row.values())
 
 #----Agregar---------
 
