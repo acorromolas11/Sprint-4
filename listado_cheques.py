@@ -73,15 +73,16 @@ def crearArchivo(filtro,opcion):
             reader = csv.DictReader(rfile)
             writer.writerow(reader.fieldnames)
             for row in reader:
-                if(row["DNI"]==filtro and opcion==1):
-                    writer.writerows(row.values())
-                elif(row["Tipo"]==filtro and opcion==2):
-                    writer.writerows(row.values())
-                elif(row["Estado"]==filtro and opcion==3):
-                    writer.writerows(row.values())
+                dni = row["DNI"]
+                dni = int(dni)
+                if(dni==filtro and opcion==1):
+                    writer.writerow(row.values())
+                elif(row['Tipo']==filtro and opcion==2):
+                    writer.writerow(row.values())
+                elif(row['Estado']==filtro and opcion==3):
+                    writer.writerow(row.values())
 
 def crearArchivoFechas(strg1,strg2):
-    fieldNames = ["NroCheque","CodigoBanco","CodigoSucursal","NumeroCuentaOrigen","NumeroCuentaDestino","Valor","FechaOrigen","FechaPago","DNI","Estado","Tipo"]
     with open (f"FECHAS_{datetime.datetime.now().strftime('%Y-%m-%d')}_.csv","w",newline='') as wfile:
         with open("cheques.csv","r") as rfile:
             writer = csv.writer(wfile)
@@ -102,7 +103,6 @@ def agregar():
     with open ("cheques.csv","+a",newline='') as salida:
         writer = csv.writer(salida)
         NroCheque = ultimo + 1 
-        #NroCheque = ingresarGenerico("Ingrese el NRO de cheque: ")
         CodigoBanco = ingresarGenerico("Ingrese el codigo de Banco: ")
         CodigoSucursal = ingresarGenerico("Ingrese el codigo de la sucursal: ")
         NumeroCuentaOrigen = verificarDNI("Ingrese el numero de cuenta de origen: ")
@@ -127,7 +127,9 @@ def filtrado(filtro,opcion,salida):
             if(salida == 1):
                 mostrarTitulo()
                 for row in reader:
-                    if(row["DNI"]==filtro and opcion==1):
+                    dni = row["DNI"]
+                    dni = int(dni)
+                    if(dni==filtro and opcion==1):
                         mostrarDatos(row)
                     elif(row["Tipo"]==filtro and opcion==2):
                         mostrarDatos(row)
