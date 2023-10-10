@@ -1,5 +1,0 @@
-NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,Dni,Estado,Tipo
-1,15,102,12345678,98765432,1500.50,2023-10-20,2023-10-20,12345678,aprobado,emitido
-4,35,275,33333333,44444444,250.80,2020-2-2,2021-7-20,55555555,aprobado,emitido
-5,45,55,11111111,56789012,1000.00,1999-1-20,2022-2-12,55555555,pendiente,emitido
-10,40,220,87654321,98765432,900.30,2002-9-4,2005-4-8,55555555,pendiente,emitido
