@@ -1,5 +1,4 @@
 import csv
-from collections import defaultdict
 import datetime
 import sys
 
@@ -27,7 +26,7 @@ def crearArchivo(dni,filtro,fecha):
                 elif(row['Estado']==filtro and dni==Dni):
                     writer.writerow(row.values())
                     escribio = True
-                elif(row['FechaOrigen'] and dni==Dni and fecha):
+                elif(filtro[0]<row['FechaPago']<filtro[1] and dni==Dni and fecha):
                     writer.writerow(row.values())
                     escribio = True
         if (not escribio):
@@ -52,7 +51,7 @@ def filtrado(dni,filtro,salida,archivo_csv,fecha):
                     elif(row["Estado"]==filtro and Dni==dni):
                         mostrarDatos(row)
                         mostro = True
-                    elif(row["FechaOrigen"]<filtro and Dni==dni and fecha):
+                    elif(filtro[0]<row["FechaPago"]<filtro[1] and Dni==dni and fecha):
                         mostrarDatos(row)
                         mostro = True
         if(not mostro):
@@ -65,8 +64,7 @@ def filtrado(dni,filtro,salida,archivo_csv,fecha):
 
 #----MAIN------
 if (len(sys.argv)!= 7):
-    print("Uso python listado_cheques.py cheques.csv DNI SALIDA VARIABLE")
-print(sys.argv[0],sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
+    print("Uso python listado_cheques.py cheques.csv DNI SALIDA VARIABLE FECHA")
 archivo_py = sys.argv[0]
 archivo_csv = sys.argv[1]
 dni = sys.argv[2]
@@ -79,6 +77,8 @@ variable = variable.lower()
 fecha = False
 if(variable.__contains__("-")):
     fecha = True
+    variable = sys.argv[5]
+    variable = variable.split(":")
 
 filtrado(dni,variable,salida,archivo_csv,fecha)
 #----FIN MAIN-----
