@@ -6,11 +6,11 @@ import sys
 
 #Función que imprime por pantalla los titulos(keys) de cada cheque
 def mostrarTitulo():
-    print(f"|NroCheque|CodigoBanco|CodigoSucursal|NumeroCuentaOrigen|NumeroCuentaDestino|Valor|FechaOrigen|FechaPago|DNI|Estado|Tipo|")
+    print(f"| NroCheque | CodigoBanco | CodigoSucursal | NumeroCuentaOrigen | NumeroCuentaDestino |Valor |FechaOrigen | FechaPago | DNI | Estado | Tipo |")
 
 #Función que recibe un diccionario y devuelve los valores de cada key(llave)
 def mostrarDatos(dict):
-    print(f"|{dict['NroCheque']}|{dict['CodigoBanco']}|{dict['CodigoSucursal']}|{dict['NumeroCuentaOrigen']}|{dict['NumeroCuentaDestino']}|{dict['Valor']}|{dict['FechaOrigen']}|{dict['FechaPago']}|{dict['DNI']}|{dict['Estado']}|{dict['Tipo']}|")
+    print(f"| {dict['NroCheque']} | {dict['CodigoBanco']} | {dict['CodigoSucursal']} | {dict['NumeroCuentaOrigen']} | {dict['NumeroCuentaDestino']} | {dict['Valor']} | {dict['FechaOrigen']} | {dict['FechaPago']} | {dict['DNI']} | {dict['Estado']} | {dict['Tipo']} |")
 
 #Función que recibe por parametro un archivo csv, el dni ingresado, el valor filtro (string que contiene el valor que se
 #desea filtrar, ya sea Pendiente,Aprobado,Rechazado) y un rango de fechas que es una lista que contiene dos fechas que
