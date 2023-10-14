@@ -1,2 +1,2 @@
 NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Estado,Tipo
-No se econtraron datos
+2,22,203,87654321,56789012,750.25,2022-09-20,2023-09-12,98765432,pendiente,depositado
