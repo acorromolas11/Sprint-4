@@ -1,4 +1,0 @@
-NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Estado,Tipo
-3,8,155,11111111,22222222,3000.75,2021-02-15,2022-08-04,12345678,rechazado,depositado
-7,85,186,87654321,22222222,750.75,2014-05-30,2023-06-17,12345678,pendiente,depositado
-9,70,101,33333333,56789012,450.60,2012-07-24,2015-12-06,12345678,aprobado,depositado

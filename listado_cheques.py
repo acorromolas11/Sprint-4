@@ -116,7 +116,9 @@ def filtrado(archivo_csv,dni,salida,tipo,filtro,fecha):
 #queda en "00" lo que significa que no se filtrará según otro parametro que no sea dni o tipo de cheque.
 #finalmente hay ifs que validan que el ingreso de argumentos por linea de comando sea valido.
 
-print("Uso python listado_cheques.py cheques.csv DNI SALIDA TIPO VARIABLE FECHA")
+#El ingreso debe ser de la siguiente manera:
+# python listado_cheques.py cheques.csv(nombre del archivo csv) DNI SALIDA(PANTALLA O CSV) TIPO(EMITIDO O DEPOSITADO)
+# VARIABLE(APROBADO, RECHAZADO, PENDIENTE o --fecha si es una fecha) FECHA(--fecha YYYY/MM/DD:YYYY/MM/DD)
 
 archivo_py = sys.argv[0]
 archivo_csv = sys.argv[1]
