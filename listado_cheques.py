@@ -140,15 +140,19 @@ if(variable.__contains__("-")):
     fecha = True
     variable = sys.argv[6]
     variable = variable.split(":")
-    for fecha in variable:
-        for letra in fecha:
-            if(not("0"<=letra<="9") and letra!="-"):
-                valido = False
-        mini_fecha = fecha.split("-")
-        if(len(mini_fecha[0])!=4 or len(mini_fecha[1])!=2 or len(mini_fecha[2])!=2 or not valido):
-            seguir = False
-            print("Error en el rango de fechas, el rango de fechas es: YYYY/MM/DD:YYYY/MM/DD")
-            break   
+    if(variable[0]>variable[1]):
+        seguir=False
+        print("La primera fecha no puede ser mayor a la segunda!")
+    if(seguir):
+        for fecha in variable:
+            for letra in fecha:
+                if(not("0"<=letra<="9") and letra!="-"):
+                    valido = False
+            mini_fecha = fecha.split("-")
+            if(len(mini_fecha[0])!=4 or len(mini_fecha[1])!=2 or len(mini_fecha[2])!=2 or not valido):
+                seguir = False
+                print("Error en el rango de fechas, el rango de fechas es: YYYY/MM/DD:YYYY/MM/DD")
+                break   
 
 if(variable!="pendiente" and variable!="aprobado" and variable!="rechazado" and not fecha):
     seguir = False
